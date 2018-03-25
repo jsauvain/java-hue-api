@@ -6,7 +6,11 @@
 
     <groupId>ch.jooel</groupId>
     <artifactId>hue-api</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>ExampleApplication</module>
+    </modules>
 
     <dependencies>
         <dependency>

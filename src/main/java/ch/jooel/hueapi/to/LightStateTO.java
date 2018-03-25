@@ -1,23 +1,29 @@
 package ch.jooel.hueapi.to;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class LightStateTO {
 
     @JsonProperty("bri")
-    private String brightness;
+    private Integer brightness;
     private String effect;
     @JsonProperty("sat")
-    private String saturation;
+    private Integer saturation;
     private String reachable;
     private String alert;
-    private String hue;
+    private Integer hue;
     private String colormode;
-    private String on;
+    private boolean on;
     @JsonProperty("ct")
-    private String colorTemparature;
-    private List<String> xy;
+    private Integer colorTemparature;
+    private List<Double> xy;
+    private String mode;
 
 }

@@ -1,9 +1,15 @@
 package ch.jooel.hueapi;
 
 import ch.jooel.hueapi.services.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Getter;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Getter
 public class HueApi {
@@ -25,9 +31,13 @@ public class HueApi {
     public HueApi(Bridge bridge, String username) {
         this.bridge = bridge;
         this.username = username;
+        ObjectMapper objectMapper = new ObjectMapper();
+        // TODO: 25.03.18 Add more fields to TO's later. Philips documentation is not up to date
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.setSerializationInclusion(NON_NULL);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://" + bridge.getAddress() + "/api/" + username + "/")
-                .addConverterFactory(JacksonConverterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .build();
 
         lightService = retrofit.create(LightService.class);

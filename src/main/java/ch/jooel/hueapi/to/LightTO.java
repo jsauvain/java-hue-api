@@ -1,5 +1,11 @@
 package ch.jooel.hueapi.to;
 
+import lombok.*;
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class LightTO {
 
     private String name;
